@@ -6,23 +6,18 @@ using UnityEngine.UI;
 public class CreateRoom : MonoBehaviour
 {
 
-    [SerializeField] private Text _roomName;
-    public Text RoomName
-    {
-        get { return _roomName; }
-    }
-
     public void OnClick_CreateRoom()
     {
-        if (PhotonNetwork.CreateRoom(RoomName.text))
+        PhotonNetwork.playerName = PlayerNetwork.Instance.Player_Id;
+        Debug.Log(PhotonNetwork.playerName);
+        RoomOptions roomOptions = new RoomOptions()
         {
-            Debug.Log("ルーム作成成功");
-            Debug.Log(RoomName.text);
-        }
-        else
-        {
-            Debug.Log("ルーム作成失敗");
-        }
+            MaxPlayers = 2,
+            IsOpen = true,
+            IsVisible = true,
+        };
+
+        PhotonNetwork.JoinOrCreateRoom(PhotonNetwork.playerName, roomOptions, null);
     }
 
     private void OnPhotonCreateRoomFailed(object[] codeAndMessage)
@@ -30,8 +25,10 @@ public class CreateRoom : MonoBehaviour
         Debug.Log($"create room failed: (codeAndMessage[1]");
     }
 
-    private void OnCreatedRoom()
+    private void OnJoinedRoom()
     {
-        Debug.Log("ルームを作成しました。");
+        Debug.Log("ルームにはいりました。");
+        PhotonNetwork.LoadLevel("Play");
     }
+
 }

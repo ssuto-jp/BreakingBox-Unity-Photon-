@@ -11,16 +11,8 @@ public class LobbyNetwork : Photon.MonoBehaviour
         PhotonNetwork.ConnectUsingSettings("v1.0");
     }
 
-    private void OnConnectedToMaster()
-    {
-        Debug.Log("サーバーへ接続しました。");
-        PhotonNetwork.playerName = PlayerNetwork.Instance.Player_Id;
-        PhotonNetwork.JoinLobby(TypedLobby.Default);
-    }
-
     private void OnJoinedLobby()
     {
         Debug.Log("ロビーにはいりました。");
-        Debug.Log(PhotonNetwork.playerName);
     }
 }

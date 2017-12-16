@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/BreakingBox/Scenes/Launcher.unity
+    guid: 2f2c18ec535a4234db610c69073e7013
+  - enabled: 1
+    path: Assets/BreakingBox/Scenes/Play.unity
+    guid: 522ec73aa44ef56499da9c23863f5042
