@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Photon.MonoBehaviour
 {
-
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float rotateSpeed = 5f;
     private float moveX = 0f;
@@ -22,26 +21,29 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        moveX = Input.GetAxis("Horizontal") * moveSpeed;
-        moveZ = Input.GetAxis("Vertical") * moveSpeed;
-        Vector3 direction = new Vector3(moveX, 0, moveZ);
-
-        if (direction.magnitude > 0.01f
-            && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1")
-            && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack2")
-            && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
+        if (photonView.isMine)
         {
-            float step = rotateSpeed * Time.deltaTime;
-            Quaternion quaternion = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, quaternion, step);
-            anim.SetBool(key_isRun, true);
-        }
-        else
-        {
-            anim.SetBool(key_isRun, false);
-        }
+            moveX = Input.GetAxis("Horizontal") * moveSpeed;
+            moveZ = Input.GetAxis("Vertical") * moveSpeed;
+            Vector3 direction = new Vector3(moveX, 0, moveZ);
 
-        PerformAttack();
+            if (direction.magnitude > 0.01f
+                && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1")
+                && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack2")
+                && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
+            {
+                float step = rotateSpeed * Time.deltaTime;
+                Quaternion quaternion = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Lerp(transform.rotation, quaternion, step);
+                anim.SetBool(key_isRun, true);
+            }
+            else
+            {
+                anim.SetBool(key_isRun, false);
+            }
+
+            PerformAttack();
+        }
     }
 
     void FixedUpdate()
