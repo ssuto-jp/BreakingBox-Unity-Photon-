@@ -23,5 +23,6 @@ public class Box : MonoBehaviour
     private void BreakBox()
     {
         Destroy(gameObject);
+        Test.BoxCount -= 1;
     }
 }
