@@ -13,17 +13,17 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] private float totalTime = 20;
     public static int BoxCount;
 
-    void Start()
+    private void Start()
     {
-        BoxCount = GameObject.FindGameObjectsWithTag("Box").Length;
+        BoxCount = GameObject.FindGameObjectsWithTag("Box").Length;           
     }
 
-    void Update()
+    private void Update()
     {
         if (PhotonNetwork.room.PlayerCount == 2)
-        {
-            CountDownTimer();
-            SetClear();
+        {            
+            CountDownTimer();           
+            SetClearText();
         }
         countDownText.text = totalTime.ToString("F2");
         boxCountText.text = (BoxCount).ToString();
@@ -39,13 +39,12 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
-    private void SetClear()
+    private void SetClearText()
     {
         if (BoxCount == 0)
         {
             totalTime = 60;
             clearText.SetActive(true);
-
         }
     }
 
