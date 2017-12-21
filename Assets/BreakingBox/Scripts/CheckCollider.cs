@@ -5,7 +5,7 @@ public class CheckCollider : MonoBehaviour
 
     private Animator animator;
     [SerializeField]
-    private CapsuleCollider[] colliders = new CapsuleCollider[3];
+    private CapsuleCollider[] colliders = new CapsuleCollider[3];//左手、右手、左足のcollider
 
     private void Start()
     {
@@ -14,6 +14,7 @@ public class CheckCollider : MonoBehaviour
 
     private void Update()
     {
+        //ステート状態によってcolliderを切り替え
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
         {
             colliders[0].enabled = true;

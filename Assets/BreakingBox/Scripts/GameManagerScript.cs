@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
@@ -15,20 +13,21 @@ public class GameManagerScript : MonoBehaviour
 
     private void Start()
     {
-        BoxCount = GameObject.FindGameObjectsWithTag("Box").Length;           
+        BoxCount = GameObject.FindGameObjectsWithTag("Box").Length;
     }
 
     private void Update()
     {
         if (PhotonNetwork.room.PlayerCount == 2)
-        {            
-            CountDownTimer();           
+        {
+            CountDownTimer();
             SetClearText();
         }
         countDownText.text = totalTime.ToString("F2");
         boxCountText.text = (BoxCount).ToString();
     }
 
+    //時間制限
     private void CountDownTimer()
     {
         totalTime -= Time.deltaTime;
@@ -39,6 +38,7 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
+    //箱を全て破壊したらクリアテキスト表示
     private void SetClearText()
     {
         if (BoxCount == 0)
@@ -48,6 +48,7 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
+    //プレイヤー間での制限時間の同期
     private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.isWriting)

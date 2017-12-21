@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerNameUI : Photon.MonoBehaviour
@@ -20,9 +18,5 @@ public class PlayerNameUI : Photon.MonoBehaviour
     }
 
     [PunRPC]
-    void SetName(string name)
-    {
-        nameText.text = name;
-    }
-
+    private void SetName(string name) => nameText.text = name;
 }
